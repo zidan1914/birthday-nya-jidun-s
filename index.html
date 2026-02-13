@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Cindy Bubub 🎂💖</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0b141a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* frame hp */
+.phone{
+    width:320px;
+    height:560px;
+    background:#0b141a;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.5);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}
+
+/* header */
+.header{
+    background:#202c33;
+    color:white;
+    padding:14px;
+    text-align:center;
+    font-weight:bold;
+    font-size:15px;
+}
+
+/* chat area */
+.chat{
+    flex:1;
+    padding:12px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+/* bubble */
+.bubble{
+    max-width:80%;
+    padding:8px 10px;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.5;
+    animation:fadeIn 0.3s ease;
+}
+
+.left{
+    background:#202c33;
+    color:white;
+    align-self:flex-start;
+}
+
+.right{
+    background:#005c4b;
+    color:white;
+    align-self:flex-end;
+}
+
+.tick{
+    font-size:11px;
+    color:#53bdeb;
+    margin-left:5px;
+}
+
+.typing{
+    font-size:13px;
+    color:#aaa;
+    font-style:italic;
+}
+
+img{
+    width:100%;
+    border-radius:10px;
+    margin-top:5px;
+}
+
+button{
+    padding:8px 14px;
+    border:none;
+    border-radius:20px;
+    background:#25d366;
+    color:white;
+    cursor:pointer;
+    margin-top:6px;
+}
+
+/* hearts */
+.heart{
+    position:fixed;
+    top:-20px;
+    font-size:18px;
+    animation:fall linear forwards;
+    opacity:0.6;
+}
+
+@keyframes fall{
+    to{ transform:translateY(110vh); }
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* responsive */
+@media(max-width:400px){
+    .phone{
+        width:95vw;
+        height:90vh;
+        border-radius:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="phone">
+    <div class="header">mbub gumush 💕</div>
+    <div class="chat" id="chat"></div>
+</div>
+
+<audio id="music" src="love.mp3" loop></audio>
+<audio id="voice" src="voice.mp3"></audio>
+
+<script>
+const chat = document.getElementById("chat");
+const music = document.getElementById("music");
+const voice = document.getElementById("voice");
+
+music.volume = 0.15;
+
+document.body.addEventListener("click",()=>{
+    music.play().catch(()=>{});
+},{once:true});
+
+function addMessage(side,text){
+    const msg = document.createElement("div");
+    msg.className="bubble "+side;
+    msg.innerHTML=text;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function typingThenMessage(text,delay){
+    const typing = document.createElement("div");
+    typing.className="typing";
+    typing.innerText="bubub sedang membaca...";
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(()=>{
+        typing.remove();
+        addMessage("left",text);
+    },delay);
+}
+
+/* alur chat */
+setTimeout(()=>addMessage("left","hewooo bububbbbbbbb 😊"),600);
+setTimeout(()=>addMessage("right","hm knp? <span class='tick'>✓✓</span>"),1600);
+setTimeout(()=>addMessage("left","ih kok gitu bubub jawabnya, olang hari ulang taunnya 🎂"),2600);
+
+setTimeout(()=>{
+    addMessage("left","<img src='foto.jpg'>");
+},3400);
+
+setTimeout(()=>{
+    addMessage("left","ini poto jidun sering liatinn wkwkw karna lucukkkk😘💕<br><button onclick='voice.play()'>▶ Putar Voice</button>");
+},4200);
+
+setTimeout(()=>{
+typingThenMessage(`
+Happy birthday ya, Cindy bububnya jiwun hehe 🎂💖
+
+Semoga di umur yang baru ini hidup bubub makin bahagia,
+makin banyak senyum, dan semua yang bubub mau
+pelan-pelan bisa tercapai.
+
+Makasiii ya udah hadir di hidup jidun.
+Sejak kenal mbub, semuanya jadi lebih seru,
+lebih hangat, dan lebih bikin kangen.
+
+Harini bubub harus bahagia,
+karena dunia lagi ngerayain lahirnya
+Cindy bubub yang imut ini 💖
+
+wopyuuuu cayank 💞
+`,3000);
+},5500);
+
+/* hearts */
+function hearts(){
+    const container = document.getElementById("hearts");
+    setInterval(()=>{
+        const h = document.createElement("div");
+        h.className="heart";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(5+Math.random()*4)+"s";
+        h.innerHTML="💗";
+        container.appendChild(h);
+        setTimeout(()=>h.remove(),9000);
+    },700);
+}
+hearts();
+</script>
+
+</body>
+</html>
